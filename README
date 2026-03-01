@@ -1,0 +1,22 @@
+# Daytona Playground
+
+This repository contains a simple web-based "Daytona Playground" demo that emulates editing the GitHub Pages for octocat's Hello-World.
+
+## Features
+
+- **Authentication**: single hard-coded user (email `solomonubani1987@gmail.com`, password `cgames`).
+- **Content Editing**: users can edit playground text and save it; each save generates a unique Game ID and persists it in `localStorage`.
+- **Game Store**: accessible via a store icon (one of the workspace images). Logged-in users can upload game executables, which are listed with their Game ID. Uploads cannot be edited or deleted.
+- **Checkout**: each uploaded game shows a "Checkout (£11)" button that opens PayPal to send £11 to `solomonubani1987@gmail.com`.
+- **Simple data storage**: All state is kept in `localStorage` so content persists between page loads.
+
+The source files for the playground are located under `daytona-playground/`:
+
+```text
+- index.html
+- styles.css
+- app.js
+```
+
+Open `daytona-playground/index.html` in a browser to try the playground.
+
