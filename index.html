@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Convacation Games VNC Playground</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header id="app-header">
+  <h1>Convacation Games VNC Playground</h1>
+  <p class="tagline">A virtual games store featuring titles in survival, strategy and storytelling.</p>
+</header>
+<nav id="nav-bar" class="hidden" style="background:#333;color:#fff;padding:8px;">
+  <button id="tab-playground" style="margin-right:10px;">Playground</button>
+  <button id="tab-submit">Submit Game</button>
+</nav>
+<div class="container" id="login-container">
+  <h1>Game ID Sign In</h1>
+  <input type="text" id="gameid" placeholder="Game ID">
+  <input type="password" id="password" placeholder="Password">
+  <button id="login-button">Sign In</button>
+  <p class="error" id="login-error"></p>
+  <p>Don't have an account? <button class="link-button" id="show-signup">Sign Up</button></p>
+</div>
+
+<div class="container hidden" id="signup-container">
+  <h1>Create Account</h1>
+  <input type="text" id="new-gameid" placeholder="Game ID">
+  <input type="password" id="new-password" placeholder="Password">
+  <input type="text" id="new-email" placeholder="Email (optional)">
+  <button id="signup-button">Sign Up</button>
+  <p class="error" id="signup-error"></p>
+  <p>Already have an account? <button class="link-button" id="show-login">Sign In</button></p>
+</div>
+
+<div class="container hidden" id="main-container">
+  <button id="logout-button">Logout</button>
+  <audio id="start-audio" src="start.mp3" preload="auto" loop></audio>
+  <!-- toolbar with Convacation icon -->
+  <div id="toolbar">
+      <img id="convacation-icon" src="fG3vjfVmd.png" alt="Convacation" title="Convacation" style="width:64px;cursor:pointer;">
+      <!-- taskbar start button -->
+      <img id="start-button" src="asset_fkANNCNjLWPE6Abcu4UZ9DqP.jpg" alt="Start" style="width:48px;cursor:pointer;margin-left:20px;">
+  </div>
+  <h2>VNC Playground</h2>
+  <div id="vnc-placeholder">VNC session will appear here.</div>
+  <div id="vnc-container" style="width:800px; height:600px; background:#000; margin-top:10px;"></div>
+  <!-- list of games for convacation account -->
+  <div id="games-list-container"></div>
+</div>
+
+<!-- game submission page (hidden by default) -->
+<div class="container hidden" id="game-page" style="background-image:url('asset_8S6UGesv2Tmj3gHsXRsEdJt7.jpg');background-size:cover;">
+  <h1>Submit a Game</h1>
+  <form id="game-form">
+    <input type="text" id="game-title" placeholder="Title"><br>
+    <textarea id="game-desc" placeholder="Description"></textarea><br>
+    <label>Image: <input type="file" id="game-image"></label><br>
+    <label>Game file: <input type="file" id="game-file"></label><br>
+    <label>Web URL: <input type="text" id="game-url" placeholder="https://example.com"></label><br>
+    <button type="submit">Upload</button>
+    <button type="button" id="cancel-upload"><img src="asset_Ws8iFz5fkenTSpS6wSgqQoXh.jpg" alt="Cancel" style="width:24px;vertical-align:middle;"></button>
+    <span id="upload-message"></span>
+  </form>
+</div>
+
+<!-- noVNC client library (might fail if CDN unreachable) -->
+<script src="https://cdn.jsdelivr.net/npm/@novnc/novnc@1.6.0/noVNC.min.js"></script>
+<!-- stub provides a harmless RFB if library fails to load -->
+<script src="novnc-stub.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Direct VNC Viewer</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #333; color: #fff; font-family: sans-serif; }
+        #vnc-status { background-color: #444; padding: 5px; }
+        #vnc-container { width: 100%; height: calc(100% - 30px); }
+        canvas { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+<div id="vnc-status">Connecting...</div>
+<div id="vnc-container">
+    <canvas id="vnc-canvas">
+        Canvas not supported.
+    </canvas>
+</div>
+
+<!-- noVNC client library -->
+<script src="https://cdn.jsdelivr.net/npm/@novnc/novnc@1.6.0/noVNC.min.js"></script>
+<!-- stub provides a harmless RFB if library fails to load -->
+<script src="novnc-stub.js"></script>
+
+<script>
+    const statusDiv = document.getElementById('vnc-status');
+    const canvas = document.getElementById('vnc-canvas');
+
+    function updateStatus(text) {
+        console.log(text);
+        statusDiv.textContent = text;
+    }
+
+    function connected(e) {
+        updateStatus("Connected to VNC server.");
+    }
+
+    function disconnected(e) {
+        if (e.detail.clean) {
+            updateStatus("Disconnected.");
+        } else {
+            updateStatus("Something went wrong, connection is closed.");
+        }
+    }
+
+    try {
+        // Determine the WebSocket URL from the page's URL
+        const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const wsUrl = `${wsProtocol}//${window.location.host}`;
+
+        updateStatus(`Connecting to VNC via ${wsUrl}...`);
+
+        const rfb = new RFB(canvas, wsUrl);
+        rfb.addEventListener("connect",  connected);
+        rfb.addEventListener("disconnect", disconnected);
+    } catch (exc) {
+        updateStatus('Fatal error: ' + exc);
+    }
+</script>
+
+</body>
+</html>
